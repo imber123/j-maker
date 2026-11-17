@@ -13,13 +13,9 @@ python3 -m http.server 8000
 
 ## 배포 (폰에 설치하기)
 
-`.github/workflows/deploy-j-maker.yml`이 `main` 브랜치에 `j-maker/`가 바뀔 때마다 **이 폴더만** GitHub Pages에 올립니다. 저장소의 다른 파일(트렌드 리포트 등)은 공개되지 않습니다.
-
-1. 저장소 **Settings → Pages → Build and deployment → Source**를 **GitHub Actions**로 바꿉니다.
-2. 이 작업을 `main`에 합칩니다(또는 Actions 탭에서 워크플로를 직접 실행).
-3. 주소는 `https://imber123.github.io/-/` 형태가 됩니다.
-
-> 비공개 저장소에서 GitHub Pages를 쓰려면 GitHub Pro 이상이 필요합니다. 무료 플랜이라면 j-maker만 담은 공개 저장소를 따로 만들거나, Netlify Drop(app.netlify.com/drop)에 `j-maker` 폴더를 끌어다 놓으면 바로 HTTPS 주소가 생깁니다.
+이 저장소는 GitHub Pages(Settings → Pages → Deploy from a branch → `main` / root)로 배포됩니다.
+주소: **https://imber123.github.io/j-maker/**  
+`main`에 파일을 올리면 1~2분 뒤 자동으로 반영됩니다.
 
 설치: 아이폰 Safari 공유 → **홈 화면에 추가**, 안드로이드 Chrome 메뉴 → **앱 설치**.
 
