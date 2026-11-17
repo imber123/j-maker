@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ko" data-skin="neon">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>J 메이커</title>
+<meta name="description" content="오늘만 J가 되어보자. 팩폭 알림으로 루틴을 끝까지 밀어주는 초 단위 루틴 타이머.">
+<meta name="theme-color" content="#0b111c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="J 메이커">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-96.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=IBM+Plex+Sans+KR:wght@400;600&family=Jua&family=Press+Start+2P&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<!-- BODY:START -->
+<main id="app" class="app" aria-live="polite"></main>
+<div id="layer"></div>
+<canvas id="confetti" hidden></canvas>
+<!-- BODY:END -->
+<script>window.JM_ICON = "icons/icon-192.png";</script>
+<script src="media.js"></script>
+<script src="app.js"></script>
+<script>
+  if ("serviceWorker" in navigator && location.protocol === "https:") {
+    navigator.serviceWorker.register("sw.js").catch(function () {});
+  }
+</script>
+</body>
+</html>
