@@ -1,7 +1,8 @@
 /* J 메이커 서비스 워커: 앱 파일을 캐시해서 오프라인에서도 열리게 합니다. */
-const CACHE = 'jmaker-v2';
+const CACHE = 'jmaker-v3';
 const FILES = ['./', 'index.html', 'styles.css', 'app.js', 'media.js', 'manifest.webmanifest',
-  'icons/icon-96.png', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png'];
+  'icons/icon-96.png', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png',
+  'guide/', 'guide/index.html', 'guide/timer.webp'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(FILES)).then(() => self.skipWaiting()));

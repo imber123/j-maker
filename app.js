@@ -486,6 +486,7 @@
         }).join('')}
         <button class="card add-card" data-act="new">＋ 새 루틴 만들기</button>
       </div>
+      <a class="guide-link" href="guide/">📖 사용법 보기 · 💬 의견 보내기</a>
     </section>`;
     clearInterval(homeTimer);
     homeTimer = setInterval(homeTick, 20000);
@@ -531,6 +532,7 @@
         ${sw('set-notify', '화면 밖 알림', '다른 앱을 보고 있을 때 단계 전환 알림 (브라우저가 허용할 때)', settings.notify)}
       </div>
       <div class="btns"><button class="btn" type="button" id="set-test">🔊 음성 테스트</button><button class="btn" type="button" id="set-reset">기본 프리셋 복원</button></div>
+      <a class="btn" href="guide/">📖 사용법 · 💬 의견 보내기</a>
       <button class="btn primary" type="button" data-act="sheet-close">닫기</button>`, (s) => {
       s.querySelector('#set-nick').addEventListener('input', (e) => {
         settings.nick = e.target.value.trim() || 'P'; saveSettings();

@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>J 메이커 사용법</title>
+<meta name="description" content="J 메이커 3분 사용법과 의견 보내기">
+<meta name="theme-color" content="#0b111c">
+<link rel="icon" href="../icons/icon-96.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=IBM+Plex+Sans+KR:wght@400;600&display=swap">
+<style>
+/* 앱과 같은 다크 네온 한 가지 톤. 폰에서 위에서 아래로 읽는 한 줄 문서 + 맨 아래 의견 폼 */
+:root {
+  --bg: #0b111c; --card: #152031; --card-2: #1b293d; --line: #24354c;
+  --fg: #e6f3ff; --muted: #8a9db6; --accent: #4fe3f0; --accent-2: #3dff8f; --warn: #ff5c74; --ink: #04161a;
+  --font-ui: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
+  --font-display: "Do Hyeon", "IBM Plex Sans KR", sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.65 var(--font-ui); -webkit-text-size-adjust: 100%; }
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.wrap { max-width: 640px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 20px 48px; display: flex; flex-direction: column; gap: 36px; }
+
+header.hero { display: flex; flex-direction: column; gap: 14px; }
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand img { width: 56px; height: 56px; border-radius: 14px; }
+.brand b { font-family: var(--font-display); font-weight: 400; font-size: 22px; display: block; line-height: 1.1; }
+.brand small { color: var(--muted); font-size: 13px; }
+h1 { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(34px, 10vw, 46px); line-height: 1.1; text-wrap: balance; }
+h1 em { font-style: normal; color: var(--accent); text-shadow: 0 0 18px rgba(79,227,240,.45); }
+.lead { margin: 0; color: var(--muted); }
+.cta { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 48px; padding: 0 18px; border-radius: 12px; border: 1px solid var(--line); background: var(--card-2); color: var(--fg); font: 600 15px var(--font-ui); text-decoration: none; cursor: pointer; }
+.btn.primary { background: var(--accent); color: var(--ink); border-color: var(--accent); box-shadow: 0 0 6px rgba(79,227,240,.6), 0 0 20px rgba(79,227,240,.25); }
+.btn:active { transform: scale(.97); }
+
+nav.toc { display: flex; gap: 6px; flex-wrap: wrap; }
+nav.toc a { font-size: 13px; text-decoration: none; color: var(--muted); border: 1px solid var(--line); border-radius: 99px; padding: 4px 12px; }
+
+section { display: flex; flex-direction: column; gap: 14px; scroll-margin-top: 16px; }
+h2 { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: 28px; line-height: 1.2; display: flex; align-items: baseline; gap: 10px; }
+h2 .n { font-size: 14px; color: var(--accent); font-family: var(--font-ui); font-weight: 600; letter-spacing: .04em; }
+h3 { margin: 0; font-size: 16px; }
+p { margin: 0; }
+.muted { color: var(--muted); }
+ol.steps { margin: 0; padding: 0; list-style: none; counter-reset: s; display: flex; flex-direction: column; gap: 10px; }
+ol.steps li { counter-increment: s; display: grid; grid-template-columns: 28px 1fr; gap: 10px; align-items: start; }
+ol.steps li::before { content: counter(s); width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--card-2); border: 1px solid var(--line); color: var(--accent); font-weight: 600; font-size: 14px; }
+.duo { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.box { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.box b { font-size: 15px; }
+.box p { font-size: 14px; color: var(--muted); }
+
+.shot { display: grid; grid-template-columns: minmax(0, 220px) 1fr; gap: 18px; align-items: start; }
+.shot img { width: 100%; height: auto; border-radius: 22px; border: 1px solid var(--line); display: block; }
+.legend { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.legend li { display: flex; flex-direction: column; gap: 2px; }
+.legend b { font-size: 15px; }
+.legend span { font-size: 14px; color: var(--muted); }
+.legend .tag { color: var(--accent); }
+
+.tones { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.tones .box q { font-size: 13px; line-height: 1.45; color: var(--fg); }
+.tip { border-left: 3px solid var(--accent-2); padding: 4px 0 4px 14px; color: var(--fg); font-size: 15px; }
+
+details { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 0 16px; }
+details + details { margin-top: -4px; }
+summary { cursor: pointer; padding: 14px 0; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 10px; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "＋"; color: var(--muted); }
+details[open] summary::after { content: "−"; }
+details p { padding-bottom: 14px; color: var(--muted); font-size: 15px; }
+
+/* 의견 폼 */
+form { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 18px 16px; display: flex; flex-direction: column; gap: 18px; }
+fieldset { border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+legend, label.q { font-weight: 600; font-size: 15px; padding: 0; }
+.q small { font-weight: 400; color: var(--muted); }
+.req { color: var(--warn); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips label { position: relative; }
+.chips input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.chips span { display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 99px; background: var(--card-2); border: 1px solid var(--line); font-size: 14px; }
+.chips input:checked + span { border-color: var(--accent); color: var(--accent); background: rgba(79,227,240,.08); }
+.chips input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+.stars { display: flex; flex-direction: row-reverse; justify-content: flex-end; gap: 4px; }
+.stars input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.stars label { font-size: 34px; line-height: 1; color: var(--line); cursor: pointer; padding: 2px; }
+.stars input:checked ~ label, .stars label:hover, .stars label:hover ~ label { color: #ffd23f; }
+.stars input:focus-visible + label { outline: 2px solid var(--accent); border-radius: 6px; }
+textarea, select, input[type=text] { width: 100%; border-radius: 12px; border: 1px solid var(--line); background: var(--card-2); color: var(--fg); font: 15px/1.5 var(--font-ui); padding: 12px 14px; }
+textarea { min-height: 96px; resize: vertical; }
+select, input[type=text] { min-height: 46px; padding-block: 0; }
+textarea:focus, select:focus, input:focus { outline: none; border-color: var(--accent); }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.err { color: var(--warn); font-size: 14px; }
+.done-msg { text-align: center; display: flex; flex-direction: column; gap: 10px; align-items: center; padding: 18px 0; }
+.done-msg .big { font-family: var(--font-display); font-size: 30px; color: var(--accent-2); }
+.copybox { white-space: pre-wrap; text-align: left; width: 100%; background: var(--card-2); border: 1px solid var(--line); border-radius: 12px; padding: 12px; font-size: 13px; user-select: all; }
+footer { color: var(--muted); font-size: 13px; text-align: center; }
+
+@media (max-width: 520px) {
+  .shot { grid-template-columns: 1fr; }
+  .shot img { max-width: 260px; margin: 0 auto; }
+  .tones { grid-template-columns: 1fr; }
+  .duo, .row2 { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn:active { transform: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="brand"><img src="../icons/icon-192.png" alt="J 메이커 아이콘" width="56" height="56"><div><b>J 메이커</b><small>오늘만 J가 되어보자</small></div></div>
+  <h1>3분이면 끝나는<br><em>J 메이커 사용법</em></h1>
+  <p class="lead">루틴을 정해 두면 1초 단위로 시간을 재고, 다음에 할 일을 말로 알려주는 타이머예요. 써보고 불편한 점은 맨 아래에서 보내 주세요.</p>
+  <div class="cta"><a class="btn primary" href="../">▶ 앱 열기</a><a class="btn" href="#feedback">💬 의견 보내기</a></div>
+  <nav class="toc" aria-label="목차">
+    <a href="#install">설치</a><a href="#start">시작하기</a><a href="#timer">타이머 화면</a><a href="#deadline">출발 시각</a><a href="#make">루틴 만들기</a><a href="#settings">설정</a><a href="#faq">자주 묻는 질문</a>
+  </nav>
+</header>
+
+<section id="install">
+  <h2><span class="n">01</span>폰에 설치하기</h2>
+  <p>앱스토어 없이 웹 주소로 설치해요. 설치하면 주소창 없이 앱처럼 열리고, 인터넷이 없어도 실행돼요.</p>
+  <div class="duo">
+    <div class="box"><b>📱 아이폰</b><p><b>Safari</b>로 앱 주소를 열고, 아래쪽 공유 버튼(네모에 ↑) → <b>홈 화면에 추가</b>를 눌러요.</p></div>
+    <div class="box"><b>🤖 안드로이드</b><p><b>Chrome</b>으로 앱 주소를 열고, 오른쪽 위 ⋮ → <b>앱 설치</b> 또는 <b>홈 화면에 추가</b>를 눌러요.</p></div>
+  </div>
+  <p class="muted">앱 주소: <a href="../">imber123.github.io/j-maker</a></p>
+</section>
+
+<section id="start">
+  <h2><span class="n">02</span>루틴 시작하기</h2>
+  <ol class="steps">
+    <li><span>홈에서 루틴 하나를 골라요. 출근 준비, 욕실 청소, 등원 준비 같은 기본 루틴 6개가 들어 있어요.</span></li>
+    <li><span>카드 오른쪽의 <b>▶</b>를 누르면 바로 시작해요. 카드에 "지금 시작하면 08:22 완료"처럼 끝나는 시각이 미리 보여요.</span></li>
+    <li><span>단계 시간이 0초가 되면 소리와 함께 <b>다음 단계로 자동으로</b> 넘어가요.</span></li>
+    <li><span>마지막 단계가 끝나면 결과 화면에서 <b>J 지수</b>와 등급을 받아요. 연장을 덜 할수록 점수가 높아요.</span></li>
+  </ol>
+  <p class="tip">처음 ▶를 누를 때 소리가 켜져요. <b>무음 모드</b>면 음성이 안 들리니 소리를 켜 두세요.</p>
+</section>
+
+<section id="timer">
+  <h2><span class="n">03</span>타이머 화면 보는 법</h2>
+  <div class="shot">
+    <img src="timer.webp" alt="타이머 화면: 위쪽에 완료 예정 시각, 가운데 큰 숫자 05:44, 샤워 애니메이션과 말풍선, 아래쪽에 +1 +2 +5분 버튼과 멈춤, 다 했어요, 다시 버튼" width="585" height="1266" loading="lazy">
+    <ul class="legend">
+      <li><b><span class="tag">오른쪽 위</span> 완료 예정 · 마감</b><span>지금 속도로 몇 시에 끝나는지 보여줘요. 마감 시각을 정했다면 몇 분 여유인지, 몇 분 늦는지도 나와요.</span></li>
+      <li><b><span class="tag">가운데</span> 큰 숫자</b><span>지금 단계의 남은 시간이에요. 1분 남으면 빨간색, 10초 남으면 깜빡이면서 삑 소리가 나요.</span></li>
+      <li><b><span class="tag">그림 · 말풍선</span> 지금 할 일</b><span>해야 할 행동이 계속 움직여요. 폰을 힐끗 봐도 알 수 있게요. 말풍선의 멘트는 음성으로도 나와요.</span></li>
+      <li><b><span class="tag">+1 · +2 · +5</span> 시간 연장</b><span>늦어질 것 같으면 눌러요. 대신 누를수록 잔소리가 세지고 J 지수가 내려가요.</span></li>
+      <li><b><span class="tag">아래 버튼</span> 멈춤 · 다 했어요 · 다시</b><span><b>다 했어요</b>는 일찍 끝냈을 때 다음 단계로 넘기고, <b>다시</b>는 지금 단계를 처음부터 다시 세요. 왼쪽 위 ✕는 그만두기예요.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="deadline">
+  <h2><span class="n">04</span>출발 시각 정하기</h2>
+  <p>"08:30에는 나가야 해"를 정해 두면, 몇 시까지 시작해야 하는지 거꾸로 계산해 줘요.</p>
+  <ol class="steps">
+    <li><span>루틴 카드의 ✏️ → <b>⏰ 출발 · 마감 시각</b>에 시간을 넣고 저장해요.</span></li>
+    <li><span>홈 카드에 <b>"08:00까지 시작 · 12분 여유"</b>가 표시돼요. 홈을 켜 두면 시작할 시각에 말로 알려줘요.</span></li>
+    <li><span>이미 늦었다면 <b>⚡ 압축해서 시작</b> 버튼이 나와요. 모든 단계를 남은 시간에 맞게 줄여서 시작해요.</span></li>
+  </ol>
+</section>
+
+<section id="make">
+  <h2><span class="n">05</span>내 루틴 만들기 · 고치기</h2>
+  <ol class="steps">
+    <li><span>홈 맨 아래 <b>＋ 새 루틴 만들기</b>, 또는 카드의 ✏️를 눌러요.</span></li>
+    <li><span>단계 이름을 쓰면 어울리는 그림이 자동으로 붙어요. 예: "머리 말리기" → 💇‍♀️. 그림을 누르면 직접 고를 수도 있어요.</span></li>
+    <li><span><b>−  ＋</b>로 단계 시간을, <b>↑ ↓</b>로 순서를 바꿔요.</span></li>
+    <li><span><b>총 목표 시간</b>을 넣으면 남는 시간이나 넘치는 시간을 계산해 주고, 한 번에 맞추는 버튼도 나와요.</span></li>
+  </ol>
+</section>
+
+<section id="settings">
+  <h2><span class="n">06</span>설정</h2>
+  <p>홈 오른쪽 위 ⚙️에서 바꿔요. 말투는 누르면 바로 들어볼 수 있어요.</p>
+  <div class="tones">
+    <div class="box"><b>친절</b><q>"P님, 잘하고 있어요. 이제 머리 말릴 시간이에요."</q></div>
+    <div class="box"><b>팩폭 (기본)</b><q>"P님, 딴짓 금지. 당장 머리 말리세요!"</q></div>
+    <div class="box"><b>교관</b><q>"P님! 동작 그만. 머리 말리기 실시!"</q></div>
+  </div>
+  <div class="duo">
+    <div class="box"><b>호칭</b><p>"P님" 대신 원하는 이름으로 불러 줘요.</p></div>
+    <div class="box"><b>테마</b><p>다크 네온, 미니멀 파스텔, 아케이드 중에서 골라요.</p></div>
+  </div>
+</section>
+
+<section id="faq">
+  <h2><span class="n">07</span>자주 묻는 질문</h2>
+  <div>
+    <details><summary>소리가 안 나요</summary><p>무음 모드인지 확인해 주세요. 소리는 ▶를 처음 눌렀을 때부터 나요. 일부 안드로이드 폰은 한국어 음성이 설치돼 있지 않을 수 있어요(설정 → 텍스트 음성 변환).</p></details>
+    <details><summary>화면이 꺼지면 어떻게 되나요?</summary><p>타이머가 도는 동안은 화면이 꺼지지 않게 해 둬요. 다른 앱으로 가거나 화면을 끄면 알림이 늦어질 수 있어요. 다시 열면 흐른 시간만큼 따라잡아요. 폰을 세면대나 화장대에 세워 두고 쓰는 걸 추천해요.</p></details>
+    <details><summary>앱을 닫아 버렸어요</summary><p>4시간 안에 다시 열면 "이어서 할까요?"가 나와요. 그동안 흐른 시간은 반영돼요.</p></details>
+    <details><summary>내 기록은 어디에 저장되나요?</summary><p>루틴과 기록은 모두 내 폰 브라우저에만 저장돼요. 회원가입이 없고, 다른 사람이 볼 수 없어요. 대신 브라우저 데이터를 지우면 같이 지워져요.</p></details>
+    <details><summary>아이폰에서 진동이 안 와요</summary><p>아이폰 Safari는 웹앱 진동을 지원하지 않아요. 안드로이드에서만 진동해요.</p></details>
+  </div>
+</section>
+
+<section id="feedback">
+  <h2><span class="n">08</span>의견 보내기</h2>
+  <p>1분이면 돼요. 좋았던 것, 짜증 났던 것 다 솔직하게 알려 주세요. 다음 버전에 바로 반영할게요.</p>
+  <form id="fb" novalidate>
+    <fieldset>
+      <legend>전체적으로 몇 점인가요? <span class="req">*</span></legend>
+      <div class="stars" role="radiogroup" aria-label="별점">
+        <input type="radio" name="rating" id="r5" value="5"><label for="r5" aria-label="5점">★</label>
+        <input type="radio" name="rating" id="r4" value="4"><label for="r4" aria-label="4점">★</label>
+        <input type="radio" name="rating" id="r3" value="3"><label for="r3" aria-label="3점">★</label>
+        <input type="radio" name="rating" id="r2" value="2"><label for="r2" aria-label="2점">★</label>
+        <input type="radio" name="rating" id="r1" value="1"><label for="r1" aria-label="1점">★</label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>써본 루틴</legend>
+      <div class="chips">
+        <label><input type="radio" name="routine" value="지각 위기 15분 컷"><span>지각 위기 15분</span></label>
+        <label><input type="radio" name="routine" value="아침 30분 컷 출근 준비"><span>출근 준비 30분</span></label>
+        <label><input type="radio" name="routine" value="미루고 미룬 욕실 청소"><span>욕실 청소</span></label>
+        <label><input type="radio" name="routine" value="퇴근 후 뻗기 방지 루틴"><span>퇴근 후 루틴</span></label>
+        <label><input type="radio" name="routine" value="아이 등원 전투 루틴"><span>등원 준비</span></label>
+        <label><input type="radio" name="routine" value="외출 후 퀵 정리"><span>외출 후 정리</span></label>
+        <label><input type="radio" name="routine" value="직접 만든 루틴"><span>직접 만든 루틴</span></label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>제일 마음에 든 말투</legend>
+      <div class="chips">
+        <label><input type="radio" name="tone" value="친절"><span>친절</span></label>
+        <label><input type="radio" name="tone" value="팩폭"><span>팩폭</span></label>
+        <label><input type="radio" name="tone" value="교관"><span>교관</span></label>
+        <label><input type="radio" name="tone" value="음성 안 씀"><span>음성 안 씀</span></label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <label class="q" for="fb-good">좋았던 점</label>
+      <textarea id="fb-good" name="good" placeholder="예: 숫자가 커서 세수하면서도 잘 보였어요"></textarea>
+    </fieldset>
+    <fieldset>
+      <label class="q" for="fb-bad">불편했던 점 · 고쳤으면 하는 점 <span class="req">*</span></label>
+      <textarea id="fb-bad" name="bad" placeholder="예: +1분 누를 때 잔소리가 너무 길어요"></textarea>
+    </fieldset>
+    <fieldset>
+      <label class="q" for="fb-idea">넣고 싶은 기능이나 멘트 <small>(선택)</small></label>
+      <textarea id="fb-idea" name="idea" placeholder="예: 비 오는 날엔 우산 챙기라고 말해 주면 좋겠어요"></textarea>
+    </fieldset>
+    <div class="row2">
+      <fieldset>
+        <label class="q" for="fb-device">쓴 기기</label>
+        <select id="fb-device" name="device">
+          <option value="아이폰">아이폰</option><option value="안드로이드">안드로이드</option><option value="PC">PC</option><option value="기타">기타</option>
+        </select>
+      </fieldset>
+      <fieldset>
+        <label class="q" for="fb-name">이름 · 연락처 <small>(선택)</small></label>
+        <input type="text" id="fb-name" name="name" maxlength="40" placeholder="답장 받고 싶으면">
+      </fieldset>
+    </div>
+    <p class="err" id="fb-err" role="alert" hidden></p>
+    <button class="btn primary" type="submit" id="fb-send">보내기</button>
+  </form>
+  <div class="done-msg" id="fb-done" hidden></div>
+</section>
+
+<footer>J 메이커 · 루틴과 기록은 각자의 폰에만 저장돼요</footer>
+</div>
+
+<script>
+/* 의견은 구글 폼으로 보냅니다. 아래 GOOGLE_FORM을 채우면 '보내기'가 바로 폼에 제출되고,
+   비어 있으면 카톡으로 보낼 수 있게 정리된 문구를 복사해 줍니다. */
+var GOOGLE_FORM = {
+  action: '', // 예: 'https://docs.google.com/forms/d/e/폼ID/formResponse'
+  entries: { rating: '', routine: '', tone: '', good: '', bad: '', idea: '', device: '', name: '' }, // 예: 'entry.123456789'
+};
+
+(function () {
+  var form = document.getElementById('fb');
+  var err = document.getElementById('fb-err');
+  var done = document.getElementById('fb-done');
+  var KEY = 'jm.feedback-draft';
+  var LABELS = { rating: '별점', routine: '써본 루틴', tone: '말투', good: '좋았던 점', bad: '불편한 점', idea: '넣고 싶은 것', device: '기기', name: '이름' };
+
+  var ua = navigator.userAgent;
+  form.device.value = /iPhone|iPad|iPod/.test(ua) ? '아이폰' : /Android/.test(ua) ? '안드로이드' : /Windows|Macintosh|Linux/.test(ua) ? 'PC' : '기타';
+
+  function values() {
+    var v = {};
+    ['rating', 'routine', 'tone'].forEach(function (k) { var c = form.querySelector('input[name=' + k + ']:checked'); v[k] = c ? c.value : ''; });
+    ['good', 'bad', 'idea', 'device', 'name'].forEach(function (k) { v[k] = form[k].value.trim(); });
+    return v;
+  }
+  // 쓰다 만 내용은 이 폰에 임시 저장
+  try {
+    var d = JSON.parse(localStorage.getItem(KEY) || 'null');
+    if (d) Object.keys(d).forEach(function (k) {
+      if (!d[k]) return;
+      var r = form.querySelector('input[name=' + k + '][value="' + String(d[k]).replace(/"/g, '') + '"]');
+      if (r) r.checked = true; else if (form[k] && form[k].tagName) form[k].value = d[k];
+    });
+  } catch (e) {}
+  form.addEventListener('input', function () { if (!err.hidden) showErr(''); try { localStorage.setItem(KEY, JSON.stringify(values())); } catch (e) {} });
+
+  function showErr(msg) { err.textContent = msg; err.hidden = !msg; }
+  function asText(v) {
+    return '[J 메이커 의견]\n' + Object.keys(LABELS).filter(function (k) { return v[k]; })
+      .map(function (k) { return '· ' + LABELS[k] + ': ' + (k === 'rating' ? '★'.repeat(+v[k]) + ' (' + v[k] + '점)' : v[k]); }).join('\n');
+  }
+  function finish(html) {
+    form.hidden = true; done.hidden = false; done.innerHTML = html;
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    done.scrollIntoView({ block: 'center' });
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = values();
+    if (!v.rating) return showErr('별점을 골라 주세요.');
+    if (!v.bad) { form.bad.focus(); return showErr('불편했던 점을 한 줄이라도 적어 주세요. 없으면 "없음"도 좋아요.'); }
+    showErr('');
+    var g = GOOGLE_FORM;
+    if (g.action && g.entries.bad) {
+      var body = new URLSearchParams();
+      Object.keys(g.entries).forEach(function (k) { if (g.entries[k] && v[k]) body.append(g.entries[k], v[k]); });
+      var btn = document.getElementById('fb-send'); btn.disabled = true; btn.textContent = '보내는 중…';
+      // 구글 폼은 다른 사이트의 응답 내용을 읽을 수 없게 막아 두므로(no-cors) 전송만 확인합니다.
+      fetch(g.action, { method: 'POST', mode: 'no-cors', body: body })
+        .then(function () { finish('<div class="big">고마워요! 🙌</div><p>의견이 잘 전달됐어요. 다음 버전에서 만나요.</p><a class="btn" href="../">앱으로 돌아가기</a>'); })
+        .catch(function () { btn.disabled = false; btn.textContent = '보내기'; showErr('인터넷 연결을 확인하고 다시 눌러 주세요.'); });
+      return;
+    }
+    // 폼이 아직 연결되지 않았을 때: 카톡으로 보낼 문구를 복사
+    var text = asText(v);
+    finish('<div class="big">거의 다 됐어요!</div><p>아래 내용을 복사해서 앱을 알려준 사람에게 카톡으로 보내 주세요.</p><div class="copybox" id="fb-copy"></div><button class="btn primary" type="button" id="fb-copybtn">📋 복사하기</button>');
+    document.getElementById('fb-copy').textContent = text;
+    document.getElementById('fb-copybtn').addEventListener('click', function () {
+      var b = this;
+      var ok = function () { b.textContent = '✓ 복사했어요'; };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(ok, function () { selectCopy(); });
+      else selectCopy();
+    });
+    function selectCopy() { var r = document.createRange(); r.selectNodeContents(document.getElementById('fb-copy')); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  });
+})();
+</script>
+</body>
+</html>

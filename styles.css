@@ -536,3 +536,7 @@ button { cursor: pointer; border: 0; background: none; padding: 0; }
   height: clamp(140px, 28vh, 260px); object-fit: contain;
   border-radius: var(--radius-s);
 }
+
+.guide-link { align-self: center; padding: 10px 14px; font-size: 14px; color: var(--muted); text-decoration: none; border-radius: 99px; border: var(--border-w) solid var(--line); }
+.guide-link:active { background: var(--card-2); }
+.sheet a.btn { text-decoration: none; color: var(--fg); }
